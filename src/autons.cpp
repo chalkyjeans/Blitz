@@ -78,6 +78,14 @@ void angleChangerTask() {
   printf("Started angle changer task\n");
 }
 
+void roller() {
+  rollerIntake.move_relative(300, 600);
+  // block until the roller intake is done
+  while (rollerIntake.get_actual_velocity() != 0) {
+    pros::delay(10);
+  }
+}
+
 void on_roller() {
   flywheelPIDTask();
   flywheelTask();
@@ -87,11 +95,7 @@ void on_roller() {
   chassis.set_drive_pid(-6, 50);
   chassis.wait_drive();
 
-  rollerIntake.move_relative(300, 600);
-  // block until the roller intake is done
-  while (rollerIntake.get_actual_velocity() != 0) {
-    pros::delay(10);
-  }
+  roller();
 
   chassis.set_drive_pid(6, 50);
   chassis.wait_drive();
@@ -99,11 +103,7 @@ void on_roller() {
   /* chassis.set_drive_pid(-6, 50);
   chassis.wait_drive();
 
-  rollerIntake.move_relative(300, 600);
-  // block until the roller intake is done
-  while (rollerIntake.get_actual_velocity() != 0) {
-    pros::delay(10);
-  }
+  roller();
 
   chassis.set_drive_pid(6, 50);
   chassis.wait_drive();
@@ -163,14 +163,44 @@ void off_roller() {
   chassis.set_drive_pid(-6, 50);
   chassis.wait_drive();
 
-  rollerIntake.move_relative(300, 600);
-  // block until the roller intake is done
-  while (rollerIntake.get_actual_velocity() != 0) {
-    pros::delay(10);
-  }
+  roller();
 
   chassis.set_drive_pid(6, 50);
   chassis.wait_drive(); */
+
+}
+
+void double_roller() {
+
+  flywheelPIDTask();
+  flywheelTask();
+  indexerTask();
+  angleChangerTask();
+
+  chassis.set_drive_pid(-6, 50);
+  chassis.wait_drive();
+
+  roller();
+
+  chassis.set_drive_pid(6, 50);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(45, TURN_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(50, DRIVE_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-135, DRIVE_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(-6, 50);
+  chassis.wait_drive();
+
+  roller();
+
+  chassis.set_drive_pid(6, 50);
+  chassis.wait_drive();
 
 }
 

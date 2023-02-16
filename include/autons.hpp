@@ -39,4 +39,5 @@ void modified_exit_condition();
 
 void on_roller();
 void off_roller();
+void double_roller();
 void skills();
