@@ -86,6 +86,14 @@ void roller() {
   }
 }
 
+void skillsroller() {
+  rollerIntake.move_relative(300, 600);
+  // block until the roller intake is done
+  while (rollerIntake.get_actual_velocity() != 0) {
+    pros::delay(10);
+  }
+}
+
 void on_roller() {
   flywheelPIDTask();
   flywheelTask();
@@ -210,6 +218,9 @@ void skills() {
   indexerTask();
   angleChangerTask();
   // TODO: add skills code here
+
+  // skillsroller();
+
 }
 
 void exit_condition_defaults() {

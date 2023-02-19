@@ -28,7 +28,11 @@ bool indexerToggle = false;
 double flywheelkP = 0.5;
 double flywheelkI = 0.0001;
 double flywheelkD = 0.1;
-double flywheelIntegralLimit = 100;
+double flywheelIntegralLimit = 10;
+
+bool startedDriver = false;
+int startTime;
+bool endgame = false;
 
 Drive chassis(
   {2, 5},
@@ -57,13 +61,13 @@ void initialize() {
   sylib::initialize();
   printf("Sylib initialized\n");
 
-  /* if (ez::util::IS_SD_CARD) {
+  if (ez::util::IS_SD_CARD) {
     printf("SD card detected - Loading gif\n");
-    Gif gif("/usd/tempest.gif", lv_scr_act());
+    static Gif gif("/usd/tempest.gif", lv_scr_act());
     printf("Loaded gif\n");
   } else {
     printf("No SD card detected\n");
-  } */
+  }
 
 }
 
@@ -93,15 +97,30 @@ void opcontrol() {
   
   chassis.set_drive_brake(MOTOR_BRAKE_COAST);
 
-  std::shared_ptr<graphy::AsyncGrapher> grapher(new graphy::AsyncGrapher("Flywheel Velocity vs Time"));
+  if (!startedDriver) {
+    startTime = pros::millis();
+  }
+  startedDriver = true;
+
+  /* std::shared_ptr<graphy::AsyncGrapher> grapher(new graphy::AsyncGrapher("Flywheel Velocity vs Time"));
   grapher -> addDataType("Desired Value", COLOR_RED);
   grapher -> addDataType("Actual Value", COLOR_BLUE);
-  grapher -> startTask();
+  grapher -> startTask(); */
 
   while (true) {
 
-    grapher -> update("Desired Value", flywheel.get_target_velocity());
-    grapher -> update("Actual Value", flywheel.get_actual_velocity());
+    // grapher -> update("Desired Value", flywheel.get_target_velocity());
+    // grapher -> update("Actual Value", flywheel.get_actual_velocity());
+
+    if (pros::millis() - startTime > 95000) {
+      endgame = true;
+    }
+
+    if (master.get_digital_new_press(DIGITAL_X)) {
+      if (endgame) {
+        expansion.set_value(true);
+      }
+    }
 
     pros::Task flywheelTask([]() {
       flywheelPID(flywheelkP, flywheelkI, flywheelkD, flywheelIntegralLimit);
