@@ -14,8 +14,8 @@ int DRIVE_SPEED = 110;
 int TURN_SPEED = 90;
 int SWING_SPEET = 90;
 
-pros::Motor rollerIntake(19, MOTOR_GEARSET_06, true);
-pros::Motor flywheel(20, MOTOR_GEARSET_06, true);
+pros::Motor rollerIntake(2, MOTOR_GEARSET_06, true);
+pros::Motor flywheel(1, MOTOR_GEARSET_06, true);
 
 pros::ADIDigitalOut angleChanger1(1);
 pros::ADIDigitalOut angleChanger2(2);
@@ -36,10 +36,10 @@ int startTime;
 bool endgame = false;
 
 Drive chassis(
-  {2, 5},
-  {-3, 4},
-  21,
-  3.125,
+  {-13, -14, 15},
+  {18, 19, -20},
+  7,
+  3.25,
   600,
   0.6
 );
