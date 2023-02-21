@@ -64,13 +64,13 @@ void initialize() {
 
   pros::screen::erase();
 
-  /* if (ez::util::IS_SD_CARD) {
+  if (ez::util::IS_SD_CARD) {
     printf("SD card detected - Loading gif\n");
     static Gif gif("/usd/tempest.gif", lv_scr_act());
     printf("Loaded gif\n");
   } else {
     printf("No SD card detected\n");
-  } */
+  }
 
 }
 
@@ -105,15 +105,15 @@ void opcontrol() {
   }
   startedDriver = true;
 
-  std::shared_ptr<graphy::AsyncGrapher> grapher(new graphy::AsyncGrapher("Flywheel Velocity vs Time"));
+  /* std::shared_ptr<graphy::AsyncGrapher> grapher(new graphy::AsyncGrapher("Flywheel Velocity vs Time"));
   grapher -> addDataType("Desired Value", COLOR_RED);
   grapher -> addDataType("Actual Value", COLOR_BLUE);
-  grapher -> startTask();
+  grapher -> startTask(); */
 
   while (true) {
 
-    grapher -> update("Desired Value", flywheel.get_target_velocity());
-    grapher -> update("Actual Value", flywheel.get_actual_velocity());
+    // grapher -> update("Desired Value", flywheel.get_target_velocity());
+    // grapher -> update("Actual Value", flywheel.get_actual_velocity());
 
     if (pros::millis() - startTime > 95000) {
       endgame = true;
