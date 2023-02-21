@@ -66,7 +66,7 @@ void initialize() {
 
   if (ez::util::IS_SD_CARD) {
     printf("SD card detected - Loading gif\n");
-    static Gif gif("/usd/tempest.gif", lv_scr_act());
+    static Gif gif("/usd/tempest-compressed.gif", lv_scr_act());
     printf("Loaded gif\n");
   } else {
     printf("No SD card detected\n");
