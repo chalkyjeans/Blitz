@@ -26,5 +26,10 @@ void flywheel() {
 }
 
 void expansionToggle() {
-  
+
+  if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X) &&
+      master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)) {
+    expansion.set_value(true);
+  }
+
 }

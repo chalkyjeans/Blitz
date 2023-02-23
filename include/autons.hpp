@@ -19,7 +19,7 @@ extern pros::Motor flywheelMotor;
 extern pros::ADIDigitalOut expansion;
 
 extern bool flywheelToggle;
-extern bool indexerToggle;
+extern bool rollerIndexerToggle;
 
 void drive_example();
 void turn_example();

@@ -22,7 +22,7 @@ pros::Motor flywheelMotor(2, MOTOR_GEARSET_06, true);
 pros::ADIDigitalOut expansion(8);
 
 bool flywheelToggle = false;
-bool indexerToggle = false;
+bool rollerIndexerToggle = false;
 
 double flywheelkP = 0.5;
 double flywheelkI = 0.0001;

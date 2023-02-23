@@ -6,7 +6,7 @@ extern pros::Motor flywheelMotor;
 extern pros::Motor rollerIntakeMotor;
 
 extern bool flywheelToggle;
-extern bool indexerToggle;
+extern bool rollerIndexerToggle;
 
 void flywheelTask();
 void indexerTask();

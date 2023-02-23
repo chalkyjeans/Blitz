@@ -31,7 +31,7 @@ void indexerTask() {
   printf("Starting indexer task\n");
   pros::Task indexerTask([]() {
     while (true) {
-      if (indexerToggle) {
+      if (rollerIndexerToggle) {
         printf("Indexer on\n");
         rollerIntakeMotor.move_velocity(600);
       } else {
