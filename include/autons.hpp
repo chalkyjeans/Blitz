@@ -20,7 +20,6 @@ extern pros::ADIDigitalOut angleChanger1;
 extern pros::ADIDigitalOut angleChanger2;
 extern pros::ADIDigitalOut expansion;
 
-extern int flywheelRPM;
 extern bool flywheelToggle;
 extern bool angleChangerToggle;
 extern bool indexerToggle;

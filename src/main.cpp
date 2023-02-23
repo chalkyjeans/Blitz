@@ -23,7 +23,6 @@ pros::ADIDigitalOut angleChanger1(1);
 pros::ADIDigitalOut angleChanger2(2);
 pros::ADIDigitalOut expansion(8);
 
-int flywheelRPM = 600;
 bool flywheelToggle = false;
 bool indexerToggle = false;
 
