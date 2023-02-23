@@ -1,6 +1,6 @@
 #include "pros/motors.hpp"
 
-extern pros::Motor flywheel;
+extern pros::Motor flywheelMotor;
 
 extern double flywheelkP;
 extern double flywheelkI;

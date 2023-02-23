@@ -13,8 +13,8 @@ extern double flywheelIntegralLimit;
 
 extern Drive chassis;
 
-extern pros::Motor rollerIntake;
-extern pros::Motor flywheel;
+extern pros::Motor rollerIntakeMotor;
+extern pros::Motor flywheelMotor;
 
 extern pros::ADIDigitalOut angleChanger1;
 extern pros::ADIDigitalOut angleChanger2;
@@ -36,6 +36,8 @@ void interfered_example();
 void default_constants();
 void exit_condition_defaults();
 void modified_exit_condition();
+
+void test();
 
 void on_roller();
 void off_roller();

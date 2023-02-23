@@ -1,12 +1,13 @@
 #include "PID.hpp"
+#include "autons.hpp"
 
 int integral = 0;
 int prevError = 0;
 
 void flywheelPID(double kP, double kI, double kD, double integralLimit) {
 
-  int targetRPM = flywheel.get_target_velocity();
-  int actualRPM = flywheel.get_actual_velocity();
+  int targetRPM = flywheelMotor.get_target_velocity();
+  int actualRPM = flywheelMotor.get_actual_velocity();
   int error = targetRPM - actualRPM;
 
   integral = integral + error;
@@ -24,7 +25,7 @@ void flywheelPID(double kP, double kI, double kD, double integralLimit) {
 
   int RPM = (kP * error) + (kI * integral) * (kD * derivative);
 
-  flywheel.move_velocity(RPM);
+  flywheelMotor.move_velocity(RPM);
 
   pros::delay(10);
 

@@ -1,8 +1,7 @@
 #include "autons.hpp"
-#include "main.h"
-#include "pros/rtos.hpp"
 #include "PID.hpp"
-#include <cstdio>
+#include "pros/rtos.hpp"
+
 
 void default_constants() {
   chassis.set_slew_min_power(80, 80);
@@ -14,91 +13,29 @@ void default_constants() {
   chassis.set_pid_constants(&chassis.swingPID, 7, 0, 45, 0);
 }
 
-void flywheelPIDTask() {
-  printf("Starting flywheel PID task\n");
-  pros::Task flywheelPIDTask([]() {
-    while (true) {
-      flywheelPID(flywheelkP, flywheelkI, flywheelkD, flywheelIntegralLimit);
-    }
-  });
-  printf("Started flywheel PID task\n");
-}
-
-void flywheelTask() {
-  printf("Starting flywheel task\n");
-  pros::Task flywheelTask([]() {
-    while (true) {
-      if (flywheelToggle) {
-        printf("Flywheel on\n");
-        flywheel.move_velocity(flywheelRPM);
-      } else {
-        printf("Flywheel off\n");
-        flywheel.move_velocity(0);
-      }
-      pros::delay(10);
-    }
-  });
-}
-
-void indexerTask() {
-  printf("Starting indexer task\n");
-  pros::Task indexerTask([]() {
-    while (true) {
-      if (indexerToggle) {
-        printf("Indexer on\n");
-        rollerIntake.move_velocity(600);
-      } else {
-        printf("Indexer off\n");
-        rollerIntake.move_velocity(0);
-      }
-      pros::delay(10);
-    }
-  });
-  printf("Started indexer task\n");
-}
-
-void angleChangerTask() {
-  printf("Starting angle changer task\n");
-  pros::Task angleChangerTask([]() {
-    while (true) {
-      if (angleChangerToggle) {
-        printf("Angle changer up\n");
-        angleChanger1.set_value(true);
-        angleChanger2.set_value(true);
-        flywheelRPM = 450;
-      } else {
-        printf("Angle changer down\n");
-        angleChanger1.set_value(false);
-        angleChanger2.set_value(false);
-        flywheelRPM = 600;
-      }
-      pros::delay(10);
-    }
-  });
-  printf("Started angle changer task\n");
-}
-
 void roller() {
-  rollerIntake.move_relative(300, 600);
+  rollerIntakeMotor.move_relative(300, 600);
   // block until the roller intake is done
-  while (rollerIntake.get_actual_velocity() != 0) {
+  while (rollerIntakeMotor.get_actual_velocity() != 0) {
     pros::delay(10);
   }
 }
 
 void skillsroller() {
-  rollerIntake.move_relative(300, 600);
+  rollerIntakeMotor.move_relative(300, 600);
   // block until the roller intake is done
-  while (rollerIntake.get_actual_velocity() != 0) {
+  while (rollerIntakeMotor.get_actual_velocity() != 0) {
     pros::delay(10);
   }
 }
 
+void test() {
+  indexerToggle = true;
+  pros::delay(1000);
+  indexerToggle = false;
+}
+
 void on_roller() {
-  flywheelPIDTask();
-  flywheelTask();
-  indexerTask();
-  angleChangerTask();
 
   chassis.set_drive_pid(-6, 50);
   chassis.wait_drive();
@@ -138,10 +75,6 @@ void on_roller() {
 }
 
 void off_roller() {
-  flywheelPIDTask();
-  flywheelTask();
-  indexerTask();
-  angleChangerTask();
 
   /* chassis.set_drive_pid(6, 50);
   chassis.wait_drive();
@@ -180,11 +113,6 @@ void off_roller() {
 
 void double_roller() {
 
-  flywheelPIDTask();
-  flywheelTask();
-  indexerTask();
-  angleChangerTask();
-
   chassis.set_drive_pid(-6, 50);
   chassis.wait_drive();
 
@@ -213,10 +141,6 @@ void double_roller() {
 }
 
 void skills() {
-  flywheelPIDTask();
-  flywheelTask();
-  indexerTask();
-  angleChangerTask();
   // TODO: add skills code here
 
   // skillsroller();
