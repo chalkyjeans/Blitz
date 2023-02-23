@@ -16,12 +16,9 @@ extern Drive chassis;
 extern pros::Motor rollerIntakeMotor;
 extern pros::Motor flywheelMotor;
 
-extern pros::ADIDigitalOut angleChanger1;
-extern pros::ADIDigitalOut angleChanger2;
 extern pros::ADIDigitalOut expansion;
 
 extern bool flywheelToggle;
-extern bool angleChangerToggle;
 extern bool indexerToggle;
 
 void drive_example();

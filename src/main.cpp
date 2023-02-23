@@ -19,8 +19,6 @@ int SWING_SPEET = 90;
 pros::Motor rollerIntakeMotor(1, MOTOR_GEARSET_06, true);
 pros::Motor flywheelMotor(2, MOTOR_GEARSET_06, true);
 
-pros::ADIDigitalOut angleChanger1(1);
-pros::ADIDigitalOut angleChanger2(2);
 pros::ADIDigitalOut expansion(8);
 
 bool flywheelToggle = false;

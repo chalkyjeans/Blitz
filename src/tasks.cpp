@@ -1,18 +1,18 @@
 #include "tasks.hpp"
 
 void flywheelTask() {
-    printf("Starting flywheel task\n");
-    pros::Task flywheelTask([]() {
-        while (true) {
-            if (flywheelToggle) {
-                flywheelMotor.move_velocity(600);
-            } else {
-                flywheelMotor.move_velocity(0);
-            }
-            pros::delay(10);
-        }
-    });
-    printf("Started flywheel task\n");
+  printf("Starting flywheel task\n");
+  pros::Task flywheelTask([]() {
+      while (true) {
+          if (flywheelToggle) {
+              flywheelMotor.move_velocity(600);
+          } else {
+              flywheelMotor.move_velocity(0);
+          }
+          pros::delay(10);
+      }
+  });
+  printf("Started flywheel task\n");
 }
 
 void flywheelPIDTask() {
@@ -45,7 +45,7 @@ void indexerTask() {
 }
 
 void setupTasks() {
-    flywheelTask();
-    flywheelPIDTask();
-    indexerTask();
+  flywheelTask();
+  flywheelPIDTask();
+  indexerTask();
 }

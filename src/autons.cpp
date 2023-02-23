@@ -30,8 +30,9 @@ void skillsroller() {
 }
 
 void test() {
+  chassis.set_drive_pid(100, DRIVE_SPEED);
   indexerToggle = true;
-  pros::delay(1000);
+  chassis.wait_until(50);
   indexerToggle = false;
 }
 
