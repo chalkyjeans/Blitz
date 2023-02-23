@@ -505,7 +505,7 @@
     },
     "upload_options": {
       "icon": "clawbot",
-      "slot": 2
+      "slot": 1
     }
   }
 }
