@@ -33,7 +33,8 @@ void default_constants();
 void exit_condition_defaults();
 void modified_exit_condition();
 
-void test();
+void turn_test();
+void drive_test();
 
 void on_roller();
 void off_roller();

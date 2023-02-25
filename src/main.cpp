@@ -13,11 +13,11 @@
 #include <memory>
 
 int DRIVE_SPEED = 110;
-int TURN_SPEED = 90;
+int TURN_SPEED = 80;
 int SWING_SPEET = 90;
 
-pros::Motor rollerIntakeMotor(1, MOTOR_GEARSET_06, true);
-pros::Motor flywheelMotor(2, MOTOR_GEARSET_06, true);
+pros::Motor rollerIntakeMotor(16, MOTOR_GEARSET_06, true);
+pros::Motor flywheelMotor(1, MOTOR_GEARSET_06, true);
 
 pros::ADIDigitalOut expansion(8);
 
@@ -32,7 +32,7 @@ double flywheelIntegralLimit = 10;
 Drive chassis(
   {-13, -14, 15},
   {18, 19, -20},
-  16,
+  12,
   3.25,
   600,
   0.6
@@ -42,8 +42,6 @@ void initialize() {
 
   sylib::initialize();
   printf("Sylib initialized\n");
-
-  ez::print_ez_template();
   
   pros::delay(500);
 
@@ -83,9 +81,10 @@ void autonomous() {
   chassis.reset_drive_sensor();
   chassis.set_drive_brake(MOTOR_BRAKE_HOLD);
 
-  setupTasks();
+  // setupTasks();
 
-  test();
+  turn_test();
+  // drive_test();
   // on_roller();
   // off_roller();
   // skills();

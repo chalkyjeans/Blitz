@@ -7,9 +7,9 @@ void default_constants() {
   chassis.set_slew_min_power(80, 80);
   chassis.set_slew_distance(7, 7);
   chassis.set_pid_constants(&chassis.headingPID, 11, 0, 20, 0);
-  chassis.set_pid_constants(&chassis.forward_drivePID, 4.75, 0.01, 3.73, 0);
-  chassis.set_pid_constants(&chassis.backward_drivePID, 4.75, 0.01, 3.73, 0);
-  chassis.set_pid_constants(&chassis.turnPID, 5, 0.003, 35, 15);
+  chassis.set_pid_constants(&chassis.forward_drivePID, 2.5, 0, 2, 0);
+  chassis.set_pid_constants(&chassis.backward_drivePID, 2.5, 0, 2, 0);
+  chassis.set_pid_constants(&chassis.turnPID, 0.8, 0, 0, 15);
   chassis.set_pid_constants(&chassis.swingPID, 7, 0, 45, 0);
 }
 
@@ -22,17 +22,38 @@ void roller() {
 }
 
 void skillsroller() {
-  rollerIntakeMotor.move_relative(300, 600);
+  rollerIntakeMotor.move_relative(500, 600);
   // block until the roller intake is done
   while (rollerIntakeMotor.get_actual_velocity() != 0) {
     pros::delay(10);
   }
 }
 
-void test() {
-  // rollerIndexerToggle = true;
-  chassis.set_drive_pid(50, DRIVE_SPEED);
-  // rollerIndexerToggle = false;
+void turn_test() {
+  chassis.set_turn_pid(180, TURN_SPEED);
+  chassis.wait_drive();
+  chassis.set_turn_pid(270, TURN_SPEED);
+  chassis.wait_drive();
+  chassis.set_turn_pid(0, TURN_SPEED);
+  chassis.wait_drive();
+}
+
+void drive_test() {
+  chassis.set_drive_pid(96*2, 70);
+  chassis.wait_drive();
+  chassis.set_turn_pid(180, TURN_SPEED);
+  chassis.wait_drive();
+  chassis.set_drive_pid(96*2, 70);
+  chassis.wait_drive();
+  chassis.set_turn_pid(0, TURN_SPEED);
+  chassis.wait_drive();
+  chassis.set_drive_pid(96*2, 70);
+  chassis.wait_drive();
+  chassis.set_turn_pid(180, TURN_SPEED);
+  chassis.wait_drive();
+  chassis.set_drive_pid(96*2, 70);
+  chassis.wait_drive();
+  chassis.set_turn_pid(0, TURN_SPEED);
 }
 
 void on_roller() {
@@ -76,38 +97,22 @@ void on_roller() {
 
 void off_roller() {
 
-  /* chassis.set_drive_pid(6, 50);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(15, TURN_SPEED);
-  chassis.wait_drive();
-
-  angleChangerToggle = true;
-  flywheelToggle = true;
-  indexerToggle = true;
-
-  pros::delay(6000);
-
-  angleChangerToggle = false;
-  flywheelToggle = false;
-  indexerToggle = false;
-
-  chassis.set_turn_pid(-15, TURN_SPEED);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-30, DRIVE_SPEED);
+  chassis.set_drive_pid(-45, 70);
   chassis.wait_drive();
 
   chassis.set_turn_pid(90, TURN_SPEED);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(-6, 50);
+  chassis.set_drive_pid(-26, 50);
   chassis.wait_drive();
 
   roller();
 
-  chassis.set_drive_pid(6, 50);
-  chassis.wait_drive(); */
+  chassis.set_drive_pid(30, 50);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(100, TURN_SPEED);
+  chassis.wait_drive();
 
 }
 
@@ -141,9 +146,63 @@ void double_roller() {
 }
 
 void skills() {
-  // TODO: add skills code here
+  chassis.set_drive_pid(-45, 70);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(90, TURN_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(-26, 50);
+  chassis.wait_drive();
+
+  skillsroller();
+
+  chassis.set_drive_pid(75, 70);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(0, TURN_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(-70, 50);
+  chassis.wait_drive();
 
   // skillsroller();
+
+  chassis.set_drive_pid(50, 70);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(45, TURN_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(300, 80);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(180, TURN_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(-74, 50);
+  chassis.wait_drive();
+
+  skillsroller();
+
+  chassis.set_drive_pid(55, 70);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-90, TURN_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(-40, 50);
+  chassis.wait_drive();
+
+  skillsroller();
+
+  chassis.set_drive_pid(40, 50);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(135, TURN_SPEED);
+  chassis.wait_drive();
+
+
 
 }
 
