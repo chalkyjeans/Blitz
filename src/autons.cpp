@@ -6,11 +6,21 @@
 void default_constants() {
   chassis.set_slew_min_power(80, 80);
   chassis.set_slew_distance(7, 7);
-  chassis.set_pid_constants(&chassis.headingPID, 11, 0, 20, 0);
+  chassis.set_pid_constants(&chassis.headingPID, 1, 0, 0, 0);
   chassis.set_pid_constants(&chassis.forward_drivePID, 2.5, 0, 2, 0);
   chassis.set_pid_constants(&chassis.backward_drivePID, 2.5, 0, 2, 0);
-  chassis.set_pid_constants(&chassis.turnPID, 0.8, 0, 0, 15);
+  chassis.set_pid_constants(&chassis.turnPID, 0.73, 0, 0, 15);
   chassis.set_pid_constants(&chassis.swingPID, 7, 0, 45, 0);
+}
+
+void indexer_test() {
+  pros::Task indexer_task([]() {
+    rollerIntakeMotor.move_velocity(-600);
+  });
+  pros::delay(50);
+  pros::Task flywheel_task([]() {
+    flywheelMotor.move_velocity(600);
+  });
 }
 
 void roller() {
@@ -39,21 +49,38 @@ void turn_test() {
 }
 
 void drive_test() {
-  chassis.set_drive_pid(96*2, 70);
+  chassis.set_drive_pid(96*1.5, 70);
   chassis.wait_drive();
   chassis.set_turn_pid(180, TURN_SPEED);
   chassis.wait_drive();
-  chassis.set_drive_pid(96*2, 70);
+  chassis.set_drive_pid(96*1.5, 70);
   chassis.wait_drive();
   chassis.set_turn_pid(0, TURN_SPEED);
   chassis.wait_drive();
-  chassis.set_drive_pid(96*2, 70);
+  chassis.set_drive_pid(96*1.5, 70);
   chassis.wait_drive();
   chassis.set_turn_pid(180, TURN_SPEED);
   chassis.wait_drive();
-  chassis.set_drive_pid(96*2, 70);
+  chassis.set_drive_pid(96*1.5, 70);
   chassis.wait_drive();
   chassis.set_turn_pid(0, TURN_SPEED);
+  chassis.wait_drive();
+  chassis.set_drive_pid(96*1.5, 70);
+  chassis.wait_drive();
+  chassis.set_turn_pid(180, TURN_SPEED);
+  chassis.wait_drive();
+  chassis.set_drive_pid(96*1.5, 70);
+  chassis.wait_drive();
+  chassis.set_turn_pid(0, TURN_SPEED);
+  chassis.wait_drive();
+  chassis.set_drive_pid(96*1.5, 70);
+  chassis.wait_drive();
+  chassis.set_turn_pid(180, TURN_SPEED);
+  chassis.wait_drive();
+  chassis.set_drive_pid(96*1.5, 70);
+  chassis.wait_drive();
+  chassis.set_turn_pid(0, TURN_SPEED);
+  chassis.wait_drive();
 }
 
 void on_roller() {
@@ -201,8 +228,6 @@ void skills() {
 
   chassis.set_turn_pid(135, TURN_SPEED);
   chassis.wait_drive();
-
-
 
 }
 

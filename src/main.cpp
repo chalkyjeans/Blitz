@@ -1,4 +1,5 @@
 #include "main.h"
+#include "EZ-Template/util.hpp"
 #include "autons.hpp"
 #include "tasks.hpp"
 #include "drivercontrol.hpp"
@@ -83,8 +84,9 @@ void autonomous() {
 
   // setupTasks();
 
-  turn_test();
-  // drive_test();
+  // indexer_test();
+  // turn_test();
+  drive_test();
   // on_roller();
   // off_roller();
   // skills();

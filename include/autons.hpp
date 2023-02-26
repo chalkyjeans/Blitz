@@ -33,6 +33,7 @@ void default_constants();
 void exit_condition_defaults();
 void modified_exit_condition();
 
+void indexer_test();
 void turn_test();
 void drive_test();
 
