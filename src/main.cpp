@@ -14,10 +14,10 @@
 #include <memory>
 
 int DRIVE_SPEED = 110;
-int TURN_SPEED = 80;
+int TURN_SPEED = 90;
 int SWING_SPEET = 90;
 
-pros::Motor rollerIntakeMotor(16, MOTOR_GEARSET_06, true);
+pros::Motor rollerIntakeMotor(21, MOTOR_GEARSET_06, true);
 pros::Motor flywheelMotor(1, MOTOR_GEARSET_06, true);
 
 pros::ADIDigitalOut expansion(8);
@@ -31,9 +31,9 @@ double flywheelkD = 0.1;
 double flywheelIntegralLimit = 10;
 
 Drive chassis(
-  {-13, -14, 15},
-  {18, 19, -20},
-  12,
+  {-14, -15, 13},
+  {20, 16, -5},
+  9,
   3.25,
   600,
   0.6
@@ -85,8 +85,8 @@ void autonomous() {
   // setupTasks();
 
   // indexer_test();
-  // turn_test();
-  drive_test();
+  turn_test();
+  // drive_test();
   // on_roller();
   // off_roller();
   // skills();
