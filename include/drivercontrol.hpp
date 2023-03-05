@@ -8,7 +8,12 @@ extern pros::Motor flywheelMotor;
 extern pros::ADIDigitalOut expansion;
 
 extern bool flywheelToggle;
+extern bool boost;
 
+extern pros::MotorGroup leftMotors;
+extern pros::MotorGroup rightMotors;
+
+void driver();
 void rollerIntake();
 void flywheel();
 void expansionToggle();

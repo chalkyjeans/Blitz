@@ -1,6 +1,9 @@
 #include "main.h"
 #include "EZ-Template/util.hpp"
 #include "autons.hpp"
+#include "pros/misc.h"
+#include "pros/motors.h"
+#include "pros/motors.hpp"
 #include "tasks.hpp"
 #include "drivercontrol.hpp"
 #include "PID.hpp"
@@ -18,12 +21,13 @@ int TURN_SPEED = 90;
 int SWING_SPEET = 90;
 
 pros::Motor rollerIntakeMotor(21, MOTOR_GEARSET_06, true);
-pros::Motor flywheelMotor(1, MOTOR_GEARSET_06, true);
+pros::Motor flywheelMotor(11, MOTOR_GEARSET_06, true);
 
-pros::ADIDigitalOut expansion(8);
+pros::ADIDigitalOut expansion('G');
 
 bool flywheelToggle = false;
 bool rollerIndexerToggle = false;
+bool boost = false;
 
 double flywheelkP = 0.5;
 double flywheelkI = 0.0001;
@@ -32,12 +36,22 @@ double flywheelIntegralLimit = 10;
 
 Drive chassis(
   {-14, -15, 13},
-  {20, 16, -5},
+  {20, 16, -8},
   9,
   3.25,
   600,
   0.6
 );
+
+pros::Motor left1(14, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor left2(15, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor left3(13, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor right1(20, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor right2(16, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor right3(8, pros::E_MOTOR_GEARSET_06, true);
+
+pros::MotorGroup leftMotors({left1, left2, left3});
+pros::MotorGroup rightMotors({right1, right2, right3});
 
 void initialize() { 
 
@@ -85,11 +99,11 @@ void autonomous() {
   // setupTasks();
 
   // indexer_test();
-  turn_test();
+  // turn_test();
   // drive_test();
   // on_roller();
   // off_roller();
-  // skills();
+  skills();
   // double_roller();
 
 }
@@ -105,10 +119,8 @@ void opcontrol() {
 
   while (true) {
 
-    // grapher -> update("Desired Value", flywheel.get_target_velocity());
-    // grapher -> update("Actual Value", flywheel.get_actual_velocity());
-
-    chassis.tank();
+    // grapher -> update("Desired Value", flywheelMotor.get_target_velocity());
+    // grapher -> update("Actual Value", flywheelMotor.get_actual_velocity());
 
     pros::Task rollerIntakeTask(rollerIntake);
     pros::Task flywheelTask(flywheel);
@@ -117,5 +129,5 @@ void opcontrol() {
     pros::delay(ez::util::DELAY_TIME);
 
   }
-
+  
 }

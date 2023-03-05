@@ -9,18 +9,22 @@ void default_constants() {
   chassis.set_pid_constants(&chassis.headingPID, 1, 0, 0, 0);
   chassis.set_pid_constants(&chassis.forward_drivePID, 2.5, 0, 2, 0);
   chassis.set_pid_constants(&chassis.backward_drivePID, 2.5, 0, 2, 0);
-  chassis.set_pid_constants(&chassis.turnPID, 0.73, 0, 0, 15);
+  chassis.set_pid_constants(&chassis.turnPID, 0.9, 0, 0, 15);
   chassis.set_pid_constants(&chassis.swingPID, 7, 0, 45, 0);
 }
 
 void indexer_test() {
-  pros::Task indexer_task([]() {
-    rollerIntakeMotor.move_velocity(-600);
-  });
-  pros::delay(50);
   pros::Task flywheel_task([]() {
-    flywheelMotor.move_velocity(600);
+    flywheelMotor.move_velocity(565);
   });
+  pros::delay(2500);
+  rollerIntakeMotor.move_velocity(-600);
+  pros::delay(500);
+  rollerIntakeMotor.move_velocity(0);
+  pros::delay(700);
+  rollerIntakeMotor.move_velocity(600);
+  pros::delay(300);
+  rollerIntakeMotor.move_velocity(-600);
 }
 
 void roller() {
@@ -40,11 +44,13 @@ void skillsroller() {
 }
 
 void turn_test() {
-  chassis.set_turn_pid(180, TURN_SPEED);
-  chassis.wait_drive();
-  chassis.set_turn_pid(270, TURN_SPEED);
-  chassis.wait_drive();
-  chassis.set_turn_pid(0, TURN_SPEED);
+  // chassis.set_turn_pid(180, TURN_SPEED);
+  // chassis.wait_drive();
+  // chassis.set_turn_pid(270, TURN_SPEED);
+  // chassis.wait_drive();
+  // chassis.set_turn_pid(0, TURN_SPEED);
+  // chassis.wait_drive();
+  chassis.set_turn_pid(90, TURN_SPEED);
   chassis.wait_drive();
 }
 
@@ -85,40 +91,14 @@ void drive_test() {
 
 void on_roller() {
 
-  chassis.set_drive_pid(-6, 50);
+  chassis.set_drive_pid(-15, 50);
   chassis.wait_drive();
 
-  roller();
+  rollerIntakeMotor.move_relative(300, 600);
+  pros::delay(500);
 
-  chassis.set_drive_pid(6, 50);
+  chassis.set_drive_pid(10, 50);
   chassis.wait_drive();
-
-  /* chassis.set_drive_pid(-6, 50);
-  chassis.wait_drive();
-
-  roller();
-
-  chassis.set_drive_pid(6, 50);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(90, TURN_SPEED);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(25, DRIVE_SPEED);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(-15, TURN_SPEED);
-  chassis.wait_drive();
-
-  angleChangerToggle = true;
-  flywheelToggle = true;
-  indexerToggle = true;
-
-  pros::delay(3000);
-
-  angleChangerToggle = false;
-  flywheelToggle = false;
-  indexerToggle = false; */
 
 }
 
@@ -130,104 +110,178 @@ void off_roller() {
   chassis.set_turn_pid(90, TURN_SPEED);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(-26, 50);
+  chassis.set_drive_pid(-22, 50);
   chassis.wait_drive();
 
-  roller();
+  rollerIntakeMotor.move_relative(400, 600);
+  pros::delay(500);
 
-  chassis.set_drive_pid(30, 50);
+  chassis.set_drive_pid(10, 50);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(100, TURN_SPEED);
-  chassis.wait_drive();
+  // chassis.set_drive_pid(30, 50);
+  // chassis.wait_drive();
+
+  // chassis.set_turn_pid(45, TURN_SPEED);
+  // chassis.wait_drive();
+
+  // chassis.set_drive_pid(145, 80);
+  // chassis.wait_drive();
+
+  // chassis.set_turn_pid(137, TURN_SPEED);
+  // chassis.wait_drive();
+
+  // pros::Task flywheel([]() {
+  //   flywheelMotor.move_velocity(600);
+  // });
+
+  // pros::delay(2700);
+
+  // rollerIntakeMotor.move_velocity(-600);
+  // pros::delay(800);
+  // rollerIntakeMotor.move_velocity(0);
+
+  // pros::delay(500);
+  // rollerIntakeMotor.move_velocity(0);
+  // pros::delay(700);
+  // rollerIntakeMotor.move_velocity(600);
+  // pros::delay(300);
+  // rollerIntakeMotor.move_velocity(-600);
 
 }
 
-void double_roller() {
+void pmskills() {
 
-  chassis.set_drive_pid(-6, 50);
-  chassis.wait_drive();
-
-  roller();
-
-  chassis.set_drive_pid(6, 50);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(45, TURN_SPEED);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(50, DRIVE_SPEED);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(-135, DRIVE_SPEED);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-6, 50);
-  chassis.wait_drive();
-
-  roller();
-
-  chassis.set_drive_pid(6, 50);
-  chassis.wait_drive();
-
-}
-
-void skills() {
-  chassis.set_drive_pid(-45, 70);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(90, TURN_SPEED);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-26, 50);
-  chassis.wait_drive();
-
-  skillsroller();
-
-  chassis.set_drive_pid(75, 70);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(0, TURN_SPEED);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-70, 50);
-  chassis.wait_drive();
-
-  // skillsroller();
-
+  // rollerIntakeMotor.move_relative(100, 600);
+  // pros::delay(500);
+  // rollerIntakeMotor.move_relative(-600, 600);
+  // pros::delay(500);
+  ///////////////////////////////////////////////
+  //52 point
   chassis.set_drive_pid(50, 70);
   chassis.wait_drive();
 
   chassis.set_turn_pid(45, TURN_SPEED);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(300, 80);
+  chassis.set_drive_pid(-70, 50);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(180, TURN_SPEED);
-  chassis.wait_drive();
+  expansion.set_value(true);
+  pros::delay(500);
+  expansion.set_value(false);
+  pros::delay(500);
+  expansion.set_value(true);
+  pros::delay(500);
+  expansion.set_value(false);
+  pros::delay(500);
+  expansion.set_value(true);
 
-  chassis.set_drive_pid(-74, 50);
-  chassis.wait_drive();
+  //////////////////////////////////////////////
+  // chassis.set_drive_pid(-15, 70);
+  // chassis.wait_drive();
+  // //skillsroller();
 
-  skillsroller();
+  // rollerIntakeMotor.move_relative(100, 600);
+  // pros::delay(500);
+  // chassis.set_drive_pid(-5, 70);
+  // chassis.wait_drive();
+  // rollerIntakeMotor.move_relative(-700, 600);
+  // pros::delay(500);
 
-  chassis.set_drive_pid(55, 70);
-  chassis.wait_drive();
+  // chassis.set_drive_pid(50, 70);
+  // chassis.wait_drive();
 
-  chassis.set_turn_pid(-90, TURN_SPEED);
-  chassis.wait_drive();
+  // chassis.set_turn_pid(90, TURN_SPEED);
+  // chassis.wait_drive();
 
-  chassis.set_drive_pid(-40, 50);
-  chassis.wait_drive();
+  // chassis.set_drive_pid(-70, 70);
+  // chassis.wait_drive();
 
-  skillsroller();
+  // rollerIntakeMotor.move_relative(100, 600);
+  // pros::delay(500);
+  // rollerIntakeMotor.move_relative(-600, 600);
+  // pros::delay(500);
 
-  chassis.set_drive_pid(40, 50);
-  chassis.wait_drive();
+  // chassis.set_drive_pid(70, 70);
+  // chassis.wait_drive();
 
-  chassis.set_turn_pid(135, TURN_SPEED);
-  chassis.wait_drive();
+  // chassis.set_turn_pid(-45, TURN_SPEED);
+  // chassis.wait_drive();
+
+  // chassis.set_drive_pid(300, 70);
+  // chassis.wait_drive();
+
+  // chassis.set_turn_pid(-135, TURN_SPEED);
+  // chassis.wait_drive();
+
+  // chassis.set_drive_pid(-50, 70);
+  // chassis.wait_drive();
+  
+  // rollerIntakeMotor.move_relative(100, 600);
+  // pros::delay(500);
+  // rollerIntakeMotor.move_relative(-600, 600);
+  // pros::delay(500);
+
+  // chassis.set_drive_pid(70, 70);
+  // chassis.wait_drive();
+
+  // chassis.set_turn_pid(-90, TURN_SPEED);
+  // chassis.wait_drive();
+
+  // chassis.set_drive_pid(-50, 70);
+  // chassis.wait_drive();
+
+  // rollerIntakeMotor.move_relative(100, 600);
+  // pros::delay(500);
+  // rollerIntakeMotor.move_relative(-600, 600);
+  // pros::delay(500);
+
+  // //expan
+  // chassis.set_drive_pid(50, 70);
+  // chassis.wait_drive();
+
+  // chassis.set_turn_pid(45, TURN_SPEED);
+  // chassis.wait_drive();
+
+  // chassis.set_drive_pid(-70, 50);
+  // chassis.wait_drive();
+
+  // expansion.set_value(true);
+  // pros::delay(500);
+  // expansion.set_value(false);
+  // pros::delay(500);
+  // expansion.set_value(true);
+  // pros::delay(500);
+  // expansion.set_value(false);
+  // pros::delay(500);
+  // expansion.set_value(true);
+
+  ///////////////////////////////////////////////////
+  // chassis.set_turn_pid(0, TURN_SPEED);
+  // chassis.wait_drive();
+
+  // chassis.set_drive_pid(-70, 50);
+  // chassis.wait_drive();
+
+  // skillsroller();
+
+  // chassis.set_drive_pid(50, 70);
+  // chassis.wait_drive();
+
+  // chassis.set_turn_pid(45, TURN_SPEED);
+  // chassis.wait_drive();
+
+  // chassis.set_drive_pid(300, 80);
+  // chassis.wait_drive();
+
+  // chassis.set_turn_pid(180, TURN_SPEED);
+  // chassis.wait_drive();
+
+  // chassis.set_drive_pid(-74, 50);
+  // chassis.wait_drive();
+
+  // skillsroller();
 
 }
 
